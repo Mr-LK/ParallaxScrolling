@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .test {
+            border: 1px solid skyblue;
+            height: 110px;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .test:after {
+            content: "";
+            display: block;
+            visibility: hidden;
+            height: 0;
+            clear: both;
+        }
+
+        .test_div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="test">
+            <div class="test_div">12</div>
+            <div class="test_div">23</div>
+            <div class="test_div">43</div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    let box_test = document.querySelector('.test')
+    let box = document.getElementsByClassName('test_div')
+    let ope = true
+    var leftMargin = box_test.offsetLeft
+    var max = leftMargin + box_test.offsetWidth - box[0].offsetWidth
+    box[0].style.left = leftMargin + 'px'
+    let currentLeft = box[0].offsetLeft
+    function moveDom () {
+        if (ope) {
+            currentLeft = currentLeft + 10
+          if (currentLeft >= max) {
+              currentLeft = max
+              ope = false
+          }
+        } else {
+            currentLeft = currentLeft - 10
+          if (currentLeft <= leftMargin) {
+              currentLeft = leftMargin
+              ope = true
+          }
+        }
+        box[0].style.left = currentLeft + 'px'
+    }
+    setInterval(moveDom, 30)
+</script>
